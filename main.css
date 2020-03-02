@@ -14,4 +14,14 @@
   .hidden {
     display: none;
   }
-  
+  .image  {
+      
+      height: 300px;
+      width: 300px;
+      list-style-type: none;
+  }
+  .image img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+  }
