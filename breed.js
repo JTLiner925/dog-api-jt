@@ -1,40 +1,44 @@
 'use strict';
 function getDogImage(breed) {
     
-  fetch(`https://dog.ceo/api/breed/breed_name/sub_breed/images/random`)
+  fetch(`https://dog.ceo/api/breed/${breed}/images/random`)
     .then(response => response.json())
-    .then(responseJson => 
-      displayResults(responseJson))
+    .then(responseJson =>{if(responseJson.status === 'success'){
+      displayResults(responseJson, breed);
+    } else {
+      displayErrorMessage(responseJson);
+    }})
     .catch(error => alert('Something went wrong. Try again later.'));
 }
 
-function displayResults(responseJson) {
+function displayResults(responseJson, breed) {
   console.log(responseJson);
   //replace the existing image with the new one
   $('.results-img').replaceWith(
     `<img src="${responseJson.message}" class="results-img">`
   );
   //display the results section
+  $('h2').text(`Check out this ${breed}!`);
   $('.results').removeClass('hidden');
+}
+function displayErrorMessage(responseJson){
+  $('h2').text(`${responseJson.message}`);
+  
 }
 
 function watchForm() {
   $('form').submit(event => {
     event.preventDefault();
-    const dogBreed = $("#breed").val().toLowerCase(); 
-    console.log(dogBreed);
-    const breedChose = `${responseJson.message}.map(dog => ${dog}.includes(${dogBreed}))`;
-    
-   if(dogBreed === breedChose ){
+    const dogBreed = $("#breed")
+      .val()
+      .toLowerCase()
+      .split(' ')
+      .reverse()
+      .join('/');
+    console.log(dogBreed);    
+   
     getDogImage(dogBreed);
-   } else {
-       alert('Check your spelling, try again')
-   }
-    // dogBreedList.map(breed !== dogBreed)
-    
-    
-      
-    
+   
   });
 }
 
