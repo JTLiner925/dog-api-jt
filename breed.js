@@ -23,7 +23,7 @@ function displayResults(responseJson, breed) {
 }
 function displayErrorMessage(responseJson){
   $('h2').text(`${responseJson.message}`);
-  
+  $('.results').addClass('hidden');
 }
 
 function watchForm() {

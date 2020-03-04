@@ -13,7 +13,8 @@ function displayResults(responseJson) {
 
   // .replaceWith(
   //   `<img src="${responseJson.message}" class="results-img">`);  
-  responseJson.message.map(img => $('.results-img').append(`<li class='image'><img src=${img}></li>`));
+  responseJson.message
+  .map(img => $('.results-img').append(`<li class='image'><img src=${img}></li>`));
 
   //display the results section
   $('.results').removeClass('hidden');
@@ -24,8 +25,8 @@ function watchForm() {
     event.preventDefault();
     const pics = $("#number").val();
     console.log(pics);
-    if(pics > 50){
-      alert('You can only view 50 or less at a time');
+    if(pics > 50 || pics < 1){
+      alert('You can view between 1 and 50 images at a time');
     }else{
       getDogImage(pics);
   }
